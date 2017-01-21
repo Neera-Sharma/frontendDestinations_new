@@ -1,0 +1,59 @@
+
+<h1>Search sightseeings</h1>
+<form #f="ngForm" novalidate>
+<div class="form-group">
+  <label>Input name:</label>
+  <input [(ngModel)]="sightseeingName"
+         name="sigthseeingName"
+         required
+         minlength="3"
+         maxlength="30"
+         pattern="[0-9a-zA-ZöäüßÖÄÜ]*"
+         class="form-control">
+
+  <div *ngIf="!f?.controls?.sightseeingName?.valid">
+    Fehler beim Validieren
+    {{f?.controls?.sightseeingName?.errors | json }}
+  </div>
+
+  <div *ngIf="f?.controls?.sightseeingName?.pending">
+    <marquee>
+      Es wird gerade validiert!
+    </marquee>
+  </div>
+
+  <div *ngIf="f?.controls?.sightseeingName?.hasError('minlength')">
+    Zu kurz!
+  </div>
+
+  <div *ngIf="f?.controls?.sightseeingName?.hasError('pattern')">
+    Darf nur Zahlen und Buchstaben beinhalten
+  </div>
+
+  <div *ngIf="f?.controls?.sightseeingName?.hasError('required')">
+    Ist ein Pflichtfeld
+  </div>
+
+</div>
+
+<div class="form-group">
+  <button class="btn" (click)="search()">Search</button>
+</div>
+</form>
+
+<div *ngFor="let sightseeing of sightseeings" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
+  <sightseeing-card
+    [item]="sightseeing"
+    [(selectedItem)]="selectedSightseeing">
+  </sightseeing-card>
+
+</div>
+
+
+
+<pre>selected items
+------------------------
+{{ selectedSightseeing | json }}
+</pre>
+
+

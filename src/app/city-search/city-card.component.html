@@ -1,0 +1,22 @@
+<div style="padding:20px;"
+     [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }">
+
+  <h2>{{item.cityName}}</h2>
+  <p>{{item.cityDescription}}</p>
+  <p>{{item.cityDriveway}}</p>
+  <p>{{item.cityMap}}</p>
+  <p>{{item.cityPhotoLink}}</p>
+  <p>{{item.user}}</p>
+
+  <p>
+    <input type="button"
+           value="Select"
+           class="btn btn-default"
+           (click)="select()" />
+
+    <a class="btn btn-default" [routerLink]="['/city-edit', item.id, { showDetails: true, expertMode: false}]">Edit</a>
+    <a class="btn btn-default" [routerLink]="['/city-delete', item.id, { showDetails: true, expertMode: false}]">Delete</a>
+    <button class="btn" style="background-color:yellow;margin-left:auto;margin-right:auto;display:block;margin-top:22%;margin-bottom:0%" (click)="sightseeings()">Go to sightseeings</button>
+  </p>
+</div>
+
