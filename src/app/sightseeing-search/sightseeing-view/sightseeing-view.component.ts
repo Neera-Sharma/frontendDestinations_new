@@ -32,10 +32,12 @@ import {City} from "../../entities/city";
       </div>
       <div class="form-group">
         <label>City</label>
+        <a  [routerLink]="['/sightseeing-search']">
         {{ city.cityName }}
+        </a>        
       </div>
       <div class="form-group">
-        <a class="btn btn-default" [routerLink]="['/sightseeing-edit', sightseeing.id, { showDetails: true, expertMode: false}]">Editieren</a>
+        <button class="btn btn-default" [routerLink]="['/sightseeing-edit', sightseeing.id, { showDetails: true, expertMode: false}]">Editieren</button>
         <button class="btn btn-default" type="button" (click)="delete()">Delete</button>
       </div>
     </div>
@@ -102,23 +104,5 @@ export class SightseeingViewComponent {
         }
       );
   }
-
-/*
- loadCity(): void {
-    this
-      .cityService
-      .findById(this.sightseeing["_links"]["city"]["href"])
-      .subscribe(
-        res => {
-          city = res;
-        },
-        (err) => {
-          alert("Fehler beim Laden: " + err.text());
-        }
-      );
-
-  }
-
-*/
 }
 
