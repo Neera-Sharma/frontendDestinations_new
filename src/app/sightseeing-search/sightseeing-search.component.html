@@ -37,7 +37,14 @@
 </div>
 
 <div class="form-group">
-  <button class="btn" (click)="search()">Search</button>
+  <button type="submit" class="btn btn-info" (click)="search()">
+    <i class="fa fa-search"></i>
+    Search
+  </button>
+  <button type="button" class="btn btn-success" routerLink="/sightseeing-create">
+    <i class="fa fa-plus"></i>
+    Add sightseeing
+  </button>
 </div>
 </form>
 
@@ -48,12 +55,5 @@
   </sightseeing-card>
 
 </div>
-
-
-
-<pre>selected items
-------------------------
-{{ selectedSightseeing | json }}
-</pre>
 
 

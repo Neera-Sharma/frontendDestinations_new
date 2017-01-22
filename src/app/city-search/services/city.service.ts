@@ -1,29 +1,22 @@
-/**
- * Created by bhara on 1/20/2017.
- */
-
-
 import {Injectable, Inject} from "@angular/core";
 import {Http, URLSearchParams, Headers} from "@angular/http";
 import {BASE_URL} from "../../app.tokens";
 import { Observable } from 'rxjs';
-import {City} from "../../entities/city";
+import {City, CityResponse, CitiesResponse} from "../../entities/city";
 
 @Injectable()
 export class CityService {
+  public url: string;
 
-  cities: Array<City> = [];
+  cities: City[] = [];
 
   constructor(
     @Inject(BASE_URL) private baseUrl: string,
-    private http: Http ) {
-
+    private http: Http) {
+    this.url = this.baseUrl + '/cities';
   }
 
-  public findById(id: string): Observable<City> {
-
-    let url = this.baseUrl;
-
+  public findById(id: string): Observable<CityResponse> {
     let search = new URLSearchParams();
     search.set('id', id);
 
@@ -32,59 +25,43 @@ export class CityService {
 
     return this
       .http
-      .get(url, { headers, search })
+      .get(this.url, { headers, search })
       .map(resp => resp.json());
 
   }
 
-  public save(city: City): Observable<City> {
+  public findByUrl(url: string): Observable<CityResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
 
-    let url = this.baseUrl;
+    return this
+      .http
+      .get(url, { headers })
+      .map(resp => resp.json());
+  }
+
+  public save(city: City): Observable<CityResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .post(this.url, city, { headers })
+      .map(resp => resp.json());
+
+  }
+
+  public find(name?: string): Observable<CitiesResponse> {
+    let search = new URLSearchParams();
+    search.set('cityName', name);
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
     return this
       .http
-      .post(url, city, { headers })
+      .get(this.url, { headers, search })
       .map(resp => resp.json());
-
-  }
-/*
-  public delete(city: City): Observable<City> {
-    let url = this.baseUrl;
-
-
-
-    let headers = new Headers();
-    headers.set('Accept', 'application/json');
-    return this.http.delete(url,city,{headers}).subscribe((ok)=>{console.log(ok)});
-
-  }
-*/
-  public find(name: string) {
-
-    let url = this.baseUrl;
-
-    let search = new URLSearchParams();
-    search.set('cityName', name);
-    let headers = new Headers();
-    headers.set('Accept', 'application/json');
-
-
-    this
-      .http
-      .get(url, { headers, search })
-      .map(resp => resp.json())
-      .subscribe(
-        (res) => {
-          this.cities = res._embedded.cities;
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-      );
-
   }
 
 }

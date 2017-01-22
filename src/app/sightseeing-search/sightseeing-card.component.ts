@@ -14,5 +14,4 @@ export class SightseeingCardComponent {
   select() {
     this.selectedItemChange.next(this.item);
   }
-
 }

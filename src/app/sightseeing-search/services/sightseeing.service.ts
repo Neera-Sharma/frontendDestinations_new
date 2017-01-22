@@ -1,80 +1,63 @@
-/**
- * Created by Elza Karimova on 19.01.2017.
- */
-
 import {Injectable, Inject} from "@angular/core";
 import {Http, URLSearchParams, Headers} from "@angular/http";
 import {BASE_URL} from "../../app.tokens";
 import { Observable } from 'rxjs';
-import {Sightseeing} from "../../entities/sightseeing";
+import {SightseeingResponse, Sightseeing, SightseeingsResponse} from "../../entities/sightseeing";
 
 @Injectable()
 export class SightseeingService {
-
-  sightseeings: Array<Sightseeing> = [];
+  public url: string;
 
   constructor(
     @Inject(BASE_URL) private baseUrl: string,
     private http: Http ) {
-
+    this.url = this.baseUrl + '/sightseeings';
   }
 
-  public findById(id: string): Observable<Sightseeing> {
-
-    let url = this.baseUrl;
-
-    let search = new URLSearchParams();
-    search.set('id', id);
+  public findById(id: string): Observable<SightseeingResponse> {
+    let url = this.url + '/' + id;
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
     return this
       .http
-      .get(url, { headers, search })
+      .get(url, { headers })
       .map(resp => resp.json());
-
   }
 
-  public save(sightseeing: Sightseeing): Observable<Sightseeing> {
+  public save(sightseeing: Sightseeing): Observable<SightseeingResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
 
-    let url = this.baseUrl;
+    return this
+      .http
+      .post(this.url, sightseeing, { headers })
+      .map(resp => resp.json());
+  }
+
+  public delete(id: string): Observable<string> {
+    let url = this.url + '/' + id;
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
     return this
       .http
-      .post(url, sightseeing, { headers })
-      .map(resp => resp.json());
-
+      .delete(url, { headers })
+      .map(resp => '');
   }
 
-
-
-  public find(name: string): void {
-
-    let url = this.baseUrl;
-
+  public find(name: string): Observable<SightseeingsResponse> {
     let search = new URLSearchParams();
     search.set('sightseeingName', name);
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
-    this
+    return this
       .http
-      .get(url, { headers, search })
-      .map(resp => resp.json())
-      .subscribe(
-        (res) => {
-          this.sightseeings = res._embedded.sightseeings;
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-      );
-
+      .get(this.url, { headers, search })
+      .map(resp => resp.json());
   }
-
 }

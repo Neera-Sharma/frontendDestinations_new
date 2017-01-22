@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import {SightseeingService} from "../services/sightseeing.service";
 import {Sightseeing} from "../../entities/sightseeing";
+import {Router} from "@angular/router";
 import {CityService} from "../../city-search/services/city.service";
 import {City} from "../../entities/city";
 
 @Component({
+  selector: 'sightseeing-create',
   template: `
-    <h1>Edit Sightseeing</h1>
-    <div *ngIf="sightseeing">
+    <h1>Create sightseeing</h1>
+    <div>
       <div class="form-group">
-        <label>Name</label>
+        <label>Sightseeing Name</label>
         <input [(ngModel)]="sightseeing.sightseeingName" class="form-control">
       </div>
       <div class="form-group">
@@ -22,7 +23,7 @@ import {City} from "../../entities/city";
         <input [(ngModel)]="sightseeing.sightseeingDriveway" class="form-control">
       </div>
        <div class="form-group">
-        <label>Photo</label>
+        <label>Photolink</label>
         <input [(ngModel)]="sightseeing.sightseeingPhotoLink" class="form-control">
       </div>
       <div class="form-group">
@@ -31,36 +32,26 @@ import {City} from "../../entities/city";
       </div>
       <div class="form-group">
         <label>City</label>
-        <select [(ngModel)]="cityId" class="form-control">
-          <option *ngFor="let city of cities" value="{{ city.id }}">{{ city.cityName }}</option>
+        <select [(ngModel)]="sightseeing.city" class="form-control">
+          <option *ngFor="let city of cities" value="{{ getCityIdLink(city.id) }}">{{ city.cityName }}</option>
         </select>
       </div>
+
       <div class="form-group">
         <button (click)="save()" class="btn btn-default">Save</button>
       </div>
     </div>
     `
 })
-export class SightseeingEditComponent {
-  id: string;
-  cityId: number;
-  cities: City[] = [];
-  showDetails: string;
+
+export class SightseeingCreateComponent {
   sightseeing = new Sightseeing();
+  cities: City[] = [];
 
   constructor(
-    private cityService: CityService,
     private sightseeingService: SightseeingService,
-    private route: ActivatedRoute,
+    private cityService: CityService,
     private router: Router) {
-
-    this.route.params.subscribe(
-      p => {
-        this.id = p['id'];
-        this.showDetails = p['showDetails'];
-        this.load();
-      }
-    );
 
     this.cityService
       .find()
@@ -78,34 +69,7 @@ export class SightseeingEditComponent {
     return this.cityService.url + '/' + id;
   }
 
-  load(): void {
-    this
-      .sightseeingService
-      .findById(this.id)
-      .subscribe(
-        res => {
-          this.sightseeing = res;
-          let url = res._links.city.href;
-          this
-            .cityService
-            .findByUrl(url)
-            .subscribe(
-              res => {
-                this.cityId = res.id;
-              },
-              err => {
-                alert('Fehler beim Laden: ' + err.text());
-              }
-            );
-        },
-        (err) => {
-          alert("Fehler beim Laden: " + err.text());
-        }
-      );
-  }
-
   save(): void {
-    this.sightseeing.city = this.getCityIdLink(this.cityId);
     this
       .sightseeingService
       .save(this.sightseeing)
@@ -120,3 +84,4 @@ export class SightseeingEditComponent {
       );
   }
 }
+

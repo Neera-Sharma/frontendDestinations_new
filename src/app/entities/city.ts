@@ -1,18 +1,34 @@
-import {Sightseeing} from "./sightseeing";
-/**
- * Created by Elza Karimova on 19.01.2017.
- */
+export class City {
+  id:number;
+  cityName: string;
+  country: string;
+  cityDescription: string;
+  cityDriveway: string;
+  cityPhotoLink: string;
+  cityMap: string;
+}
 
+export interface CitiesResponse {
+  _embedded: {
+    cities: CityResponse[]
+  },
+  _links: {
+    self: { href: string },
+    profile: { href: string }
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number
+    number: number,
+  },
+}
 
-
-export interface City {
-   id:number;
-   cityName: string;
-   cityDescription: string;
-   cityDriveway: string;
-   cityPhotoLink: string;
-   cityMap: string;
-   country: string;
-  //user: User;
-  //sightseeing: Sightseeing[];
+export interface CityResponse extends City {
+  _links: {
+    self: { href: string },
+    city: { href: string }
+    sightseeing: { href: string },
+    user: { href: string },
+  }
 }

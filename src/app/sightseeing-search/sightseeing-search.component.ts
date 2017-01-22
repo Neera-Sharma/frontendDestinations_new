@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
-import {Http, URLSearchParams, Headers} from "@angular/http";
-import {Sightseeing} from "../entities/sightseeing";
 import {SightseeingService} from "./services/sightseeing.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Sightseeing} from "../entities/sightseeing";
 
 @Component({
   selector: 'sightseeing-search',
@@ -10,26 +10,29 @@ import {SightseeingService} from "./services/sightseeing.service";
   providers:[  ]
 })
 export class SightseeingSearchComponent {
-
   public sightseeingName: string;
-
   public selectedSightseeing: Sightseeing;
+  public selectedSightseeingName: string;
 
-  constructor(private sightseeingService: SightseeingService) {
-  }
+  sightseeings: Sightseeing[] = [];
 
-  public get sightseeings(): Array<Sightseeing> {
-    return this.sightseeingService.sightseeings;
-  }
+  constructor(
+  private sightseeingService: SightseeingService,
+  private route: ActivatedRoute,
+  private router: Router) {}
 
   search(): void {
-    this.sightseeingService.find(this.sightseeingName);
-
-
-  }
-
-  select(sightseeing: Sightseeing): void {
-    this.selectedSightseeing = sightseeing;
+    this
+      .sightseeingService
+      .find(this.sightseeingName)
+      .subscribe(
+        res => {
+          this.sightseeings = res._embedded.sightseeings;
+        },
+        err => {
+          alert("Fehler beim Laden: " + err.text());
+        }
+      );
   }
 
 }

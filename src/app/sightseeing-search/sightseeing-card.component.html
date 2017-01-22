@@ -1,16 +1,6 @@
-<div style="padding:20px;"
-     [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }">
-
-  <h2>{{item.sightseeingPhoto}}</h2>
-  <p>{{item.sightseeingName}}</p>
-
-  <p>
-    <input type="button"
-           value="Auswählen"
-           class="btn btn-default"
-           (click)="select()" />
-
-    <a class="btn btn-default" [routerLink]="['/sightseeing-edit', item.id, { showDetails: true, expertMode: false}]">Editieren</a>
-    <a class="btn btn-default" [routerLink]="['/sightseeing-edit', item.id, { showDetails: true, expertMode: false}]">Anschauen</a>
-  </p>
+<div style="padding:20px;">
+    <a class="btn btn-default" [routerLink]="['/sightseeing-view', item.id, { showDetails: true, expertMode: false}]">
+      <picture>{{item.sightseeingPhoto}}</picture>
+      <p>{{item.sightseeingName}}</p>
+    </a>
 </div>
