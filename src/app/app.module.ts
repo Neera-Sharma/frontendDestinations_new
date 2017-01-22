@@ -7,16 +7,18 @@ import {BASE_URL} from './app.tokens';
 import {CityPipe} from "./shared/pipes/city.pipe";
 import { AppRouterModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
-import {ProjectSearchModule} from "./project.module";
-//const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/sightseeings";
-const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/cities";
+import {SightseeingSearchModule} from "./sightseeing-search/sightseeing-search.module";
+import {CitySearchModule} from "./city-search/city-search.module";
+const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/sightseeings";
+//const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/cities";
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ProjectSearchModule,
+    CitySearchModule,
+    SightseeingSearchModule,
     AppRouterModule
   ],
   declarations: [

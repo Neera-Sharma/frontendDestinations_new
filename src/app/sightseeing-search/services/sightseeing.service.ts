@@ -6,38 +6,30 @@ import {Injectable, Inject} from "@angular/core";
 import {Http, URLSearchParams, Headers} from "@angular/http";
 import {BASE_URL} from "../../app.tokens";
 import { Observable } from 'rxjs';
-import {Sightseeing} from "../../entities/sightseeing";
+import {ISightseeing, EmbeddedSightseeing} from "../../entities/sightseeing";
+import {Response} from "../../entities/response";
 
 @Injectable()
 export class SightseeingService {
-
-  sightseeings: Array<Sightseeing> = [];
+  sightseeings: ISightseeing[] = [];
 
   constructor(
     @Inject(BASE_URL) private baseUrl: string,
-    private http: Http ) {
+    private http: Http ) {}
 
-  }
-
-  public findById(id: string): Observable<Sightseeing> {
-
-    let url = this.baseUrl;
-
-    let search = new URLSearchParams();
-    search.set('id', id);
+  public findById(id: string): Observable<ISightseeing> {
+    let url = this.baseUrl + '/' + id;
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
     return this
       .http
-      .get(url, { headers, search })
+      .get(url, { headers })
       .map(resp => resp.json());
-
   }
 
-  public save(sightseeing: Sightseeing): Observable<Sightseeing> {
-
+  public save(sightseeing: ISightseeing): Observable<ISightseeing> {
     let url = this.baseUrl;
 
     let headers = new Headers();
@@ -47,13 +39,21 @@ export class SightseeingService {
       .http
       .post(url, sightseeing, { headers })
       .map(resp => resp.json());
-
   }
 
+  public delete(id: string): Observable<string> {
+    let url = this.baseUrl + '/' + id;
 
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
 
-  public find(name: string): void {
+    return this
+      .http
+      .delete(url, { headers })
+      .map(resp => '');
+  }
 
+  public find(name: string): Observable<Response<EmbeddedSightseeing>> {
     let url = this.baseUrl;
 
     let search = new URLSearchParams();
@@ -62,19 +62,10 @@ export class SightseeingService {
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
-    this
+    return this
       .http
       .get(url, { headers, search })
-      .map(resp => resp.json())
-      .subscribe(
-        (res) => {
-          this.sightseeings = res._embedded.sightseeings;
-        },
-        (err) => {
-          console.error('Fehler beim Laden', err);
-        }
-      );
-
+      .map(resp => resp.json());
   }
 
 }

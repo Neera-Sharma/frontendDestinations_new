@@ -10,7 +10,12 @@
            class="btn btn-default"
            (click)="select()" />
 
+    <input type="button"
+           value="Anzeigen"
+           class="btn btn-default"
+           (click)="view()" />
+
     <a class="btn btn-default" [routerLink]="['/sightseeing-edit', item.id, { showDetails: true, expertMode: false}]">Editieren</a>
-    <a class="btn btn-default" [routerLink]="['/sightseeing-edit', item.id, { showDetails: true, expertMode: false}]">Anschauen</a>
+    <!--a class="btn btn-default" [routerLink]="['/sightseeing-edit', item.id, { showDetails: true, expertMode: false}]">Anschauen</a-->
   </p>
 </div>

@@ -1,18 +1,21 @@
-import {City} from "./city";
-/**
- * Created by Elza Karimova on 19.01.2017.
- */
+export interface EmbeddedSightseeing {
+  sightseeings: ISightseeing[]
+}
 
-
-
-export interface Sightseeing {
-
-  id:number;
+export interface ISightseeing {
+  id: number;
   sightseeingName: string;
   sightseeingDescription: string;
   sightseeingDriveway: string;
   sightseeingPhotoLink: string;
   sightseeingMap: string;
-  //user: User;
-  //city: City;
+}
+
+export class Sightseeing implements ISightseeing {
+  id: number;
+  sightseeingName: string;
+  sightseeingDescription: string;
+  sightseeingDriveway: string;
+  sightseeingPhotoLink: string;
+  sightseeingMap: string;
 }
