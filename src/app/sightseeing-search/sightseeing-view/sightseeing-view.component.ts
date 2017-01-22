@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {SightseeingService} from "../services/sightseeing.service";
-import {Sightseeing, ISightseeing} from "../../entities/sightseeing";
+import {Sightseeing, SightseeingResponse} from "../../entities/sightseeing";
 import {ActivatedRoute, Router} from "@angular/router";
+import {CityService} from "../../city-search/services/city.service";
+import {City} from "../../entities/city";
 
 @Component({
   selector: 'sightseeing-view',
@@ -29,7 +31,12 @@ import {ActivatedRoute, Router} from "@angular/router";
         {{ sightseeing.sightseeingMap }}
       </div>
       <div class="form-group">
-        <button (click)="delete()">Delete</button>
+        <label>City</label>
+        {{ city.cityName }}
+      </div>
+      <div class="form-group">
+        <a class="btn btn-default" [routerLink]="['/sightseeing-edit', sightseeing.id, { showDetails: true, expertMode: false}]">Editieren</a>
+        <button class="btn btn-default" type="button" (click)="delete()">Delete</button>
       </div>
     </div>
     `
@@ -37,9 +44,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 export class SightseeingViewComponent {
   id: string;
-  sightseeing: ISightseeing = new Sightseeing();
+  city = new City();
+  sightseeing = new Sightseeing();
 
   constructor(
+    private cityService: CityService,
     private sightseeingService: SightseeingService,
     private route: ActivatedRoute,
     private router: Router) {
@@ -74,11 +83,42 @@ export class SightseeingViewComponent {
       .subscribe(
         res => {
           this.sightseeing = res;
+          let sightseeing = this.sightseeing as SightseeingResponse;
+          let url = sightseeing._links.city.href;
+          this
+            .cityService
+            .findByUrl(url)
+            .subscribe(
+              res => {
+                this.city = res;
+              },
+              err => {
+                alert('Fehler beim Laden: ' + err.text());
+              }
+            );
         },
         (err) => {
           alert("Fehler beim Laden: " + err.text());
         }
       );
   }
+
+/*
+ loadCity(): void {
+    this
+      .cityService
+      .findById(this.sightseeing["_links"]["city"]["href"])
+      .subscribe(
+        res => {
+          city = res;
+        },
+        (err) => {
+          alert("Fehler beim Laden: " + err.text());
+        }
+      );
+
+  }
+
+*/
 }
 

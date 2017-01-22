@@ -29,4 +29,6 @@ import {SightseeingViewComponent} from "./sightseeing-view/sightseeing-view.comp
     SightseeingService
   ]
 })
-export class SightseeingSearchModule {}
+export class SightseeingSearchModule {
+
+}

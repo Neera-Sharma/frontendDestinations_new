@@ -4,13 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {BASE_URL} from './app.tokens';
-import {CityPipe} from "./shared/pipes/city.pipe";
 import { AppRouterModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import {SightseeingSearchModule} from "./sightseeing-search/sightseeing-search.module";
 import {CitySearchModule} from "./city-search/city-search.module";
-const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/sightseeings";
-//const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/cities";
+const BASE_URL_FOR_PRODUCTION = "http://localhost:8081";
 
 @NgModule({
   imports: [
@@ -31,5 +29,4 @@ const BASE_URL_FOR_PRODUCTION = "http://localhost:8081/sightseeings";
   ],
   bootstrap: [ AppComponent ]
 })
-export class AppModule {
-}
+export class AppModule {}

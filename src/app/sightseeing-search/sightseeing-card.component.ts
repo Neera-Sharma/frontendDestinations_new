@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {ISightseeing} from "../entities/sightseeing";
+import {Sightseeing} from "../entities/sightseeing";
 
 @Component({
   templateUrl: './sightseeing-card.component.html',
@@ -7,8 +7,8 @@ import {ISightseeing} from "../entities/sightseeing";
 })
 export class SightseeingCardComponent {
 
-  @Input() item: ISightseeing;
-  @Input() selectedItem: ISightseeing;
+  @Input() item: Sightseeing;
+  @Input() selectedItem: Sightseeing;
   @Output() selectedItemChange = new EventEmitter();
 
   select() {

@@ -1,21 +1,35 @@
-export interface EmbeddedSightseeing {
-  sightseeings: ISightseeing[]
-}
-
-export interface ISightseeing {
+export class Sightseeing {
   id: number;
   sightseeingName: string;
   sightseeingDescription: string;
   sightseeingDriveway: string;
   sightseeingPhotoLink: string;
   sightseeingMap: string;
+  city: string;
 }
 
-export class Sightseeing implements ISightseeing {
-  id: number;
-  sightseeingName: string;
-  sightseeingDescription: string;
-  sightseeingDriveway: string;
-  sightseeingPhotoLink: string;
-  sightseeingMap: string;
+export interface SightseeingsResponse {
+  _embedded: {
+    sightseeings: SightseeingResponse[]
+  },
+  _links: {
+    self: { href: string },
+    profile: { href: string }
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number
+    number: number,
+  },
 }
+
+export interface SightseeingResponse extends Sightseeing {
+  _links: {
+    self: { href: string },
+    sightseeing: { href: string },
+    user: { href: string },
+    city: { href: string }
+  }
+}
+

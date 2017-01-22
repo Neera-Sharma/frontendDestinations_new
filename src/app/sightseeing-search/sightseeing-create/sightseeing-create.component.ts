@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {SightseeingService} from "../services/sightseeing.service";
-import {Sightseeing, ISightseeing} from "../../entities/sightseeing";
+import {Sightseeing} from "../../entities/sightseeing";
 import {Router} from "@angular/router";
+import {CityService} from "../../city-search/services/city.service";
+import {City} from "../../entities/city";
 
 @Component({
   selector: 'sightseeing-create',
@@ -28,6 +30,12 @@ import {Router} from "@angular/router";
         <label>Map</label>
         <input [(ngModel)]="sightseeing.sightseeingMap" class="form-control">
       </div>
+      <div class="form-group">
+        <label>City</label>
+        <select [(ngModel)]="sightseeing.city" class="form-control">
+          <option *ngFor="let city of cities" value="{{ getCityIdLink(city.id) }}">{{ city.cityName }}</option>
+        </select>
+      </div>
 
       <div class="form-group">
         <button (click)="save()" class="btn btn-default">Save</button>
@@ -37,12 +45,29 @@ import {Router} from "@angular/router";
 })
 
 export class SightseeingCreateComponent {
-  showDetails: string;
-  sightseeing: ISightseeing = new Sightseeing();
+  sightseeing = new Sightseeing();
+  cities: City[] = [];
 
   constructor(
     private sightseeingService: SightseeingService,
-    private router: Router) {}
+    private cityService: CityService,
+    private router: Router) {
+
+    this.cityService
+      .find()
+      .subscribe(
+        res => {
+          this.cities = res._embedded.cities;
+        },
+        err => {
+          alert('Fehler beim Laden: ' + err.text());
+        }
+      );
+  }
+
+  getCityIdLink(id: number): string {
+    return this.cityService.url + '/' + id;
+  }
 
   save(): void {
     this

@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
-import {ISightseeing} from "../entities/sightseeing";
 import {SightseeingService} from "./services/sightseeing.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Sightseeing} from "../entities/sightseeing";
 
 @Component({
   selector: 'sightseeing-search',
@@ -10,11 +11,15 @@ import {SightseeingService} from "./services/sightseeing.service";
 })
 export class SightseeingSearchComponent {
   public sightseeingName: string;
-  public selectedSightseeing: ISightseeing;
+  public selectedSightseeing: Sightseeing;
+  public selectedSightseeingName: string;
 
-  sightseeings: ISightseeing[] = [];
+  sightseeings: Sightseeing[] = [];
 
-  constructor(private sightseeingService: SightseeingService) {}
+  constructor(
+  private sightseeingService: SightseeingService,
+  private route: ActivatedRoute,
+  private router: Router) {}
 
   search(): void {
     this
@@ -30,7 +35,4 @@ export class SightseeingSearchComponent {
       );
   }
 
-  select(sightseeing: ISightseeing): void {
-    this.selectedSightseeing = sightseeing;
-  }
 }

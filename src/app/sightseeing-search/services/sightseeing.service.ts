@@ -1,24 +1,21 @@
-/**
- * Created by Elza Karimova on 19.01.2017.
- */
-
 import {Injectable, Inject} from "@angular/core";
 import {Http, URLSearchParams, Headers} from "@angular/http";
 import {BASE_URL} from "../../app.tokens";
 import { Observable } from 'rxjs';
-import {ISightseeing, EmbeddedSightseeing} from "../../entities/sightseeing";
-import {Response} from "../../entities/response";
+import {SightseeingResponse, Sightseeing, SightseeingsResponse} from "../../entities/sightseeing";
 
 @Injectable()
 export class SightseeingService {
-  sightseeings: ISightseeing[] = [];
+  public url: string;
 
   constructor(
     @Inject(BASE_URL) private baseUrl: string,
-    private http: Http ) {}
+    private http: Http ) {
+    this.url = this.baseUrl + '/sightseeings';
+  }
 
-  public findById(id: string): Observable<ISightseeing> {
-    let url = this.baseUrl + '/' + id;
+  public findById(id: string): Observable<SightseeingResponse> {
+    let url = this.url + '/' + id;
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
@@ -29,20 +26,18 @@ export class SightseeingService {
       .map(resp => resp.json());
   }
 
-  public save(sightseeing: ISightseeing): Observable<ISightseeing> {
-    let url = this.baseUrl;
-
+  public save(sightseeing: Sightseeing): Observable<SightseeingResponse> {
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
     return this
       .http
-      .post(url, sightseeing, { headers })
+      .post(this.url, sightseeing, { headers })
       .map(resp => resp.json());
   }
 
   public delete(id: string): Observable<string> {
-    let url = this.baseUrl + '/' + id;
+    let url = this.url + '/' + id;
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
@@ -53,9 +48,7 @@ export class SightseeingService {
       .map(resp => '');
   }
 
-  public find(name: string): Observable<Response<EmbeddedSightseeing>> {
-    let url = this.baseUrl;
-
+  public find(name: string): Observable<SightseeingsResponse> {
     let search = new URLSearchParams();
     search.set('sightseeingName', name);
 
@@ -64,8 +57,7 @@ export class SightseeingService {
 
     return this
       .http
-      .get(url, { headers, search })
+      .get(this.url, { headers, search })
       .map(resp => resp.json());
   }
-
 }
