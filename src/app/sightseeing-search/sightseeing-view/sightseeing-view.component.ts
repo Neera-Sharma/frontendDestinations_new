@@ -32,7 +32,7 @@ import {City} from "../../entities/city";
       </div>
       <div class="form-group">
         <label>City</label>
-        <a  [routerLink]="['/sightseeing-search']">
+        <a [routerLink]="['/city-edit', city.id,{ showDetails: true, expertMode: false}]">
         {{ city.cityName }}
         </a>        
       </div>

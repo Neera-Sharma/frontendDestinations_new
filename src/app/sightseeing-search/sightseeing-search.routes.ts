@@ -3,6 +3,7 @@ import {SightseeingSearchComponent} from "./sightseeing-search.component";
 import {SightseeingCreateComponent} from "./sightseeing-create/sightseeing-create.component";
 import {SightseeingEditComponent} from "./sightseeing-edit/sightseeing-edit.component";
 import {SightseeingViewComponent} from "./sightseeing-view/sightseeing-view.component";
+import {CityEditComponent} from "../city-search/city-edit/city-edit.component";
 
 const SIGHTSEEING_SEARCH_ROUTES: Routes = [
   {
@@ -20,6 +21,11 @@ const SIGHTSEEING_SEARCH_ROUTES: Routes = [
   {
     path: 'sightseeing-view/:id',
     component: SightseeingViewComponent
+  },
+
+  {
+    path: 'city-edit/:id',
+    component: CityEditComponent
   }
 ];
 

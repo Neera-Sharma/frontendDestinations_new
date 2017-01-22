@@ -23,7 +23,8 @@ import {SightseeingViewComponent} from "./sightseeing-view/sightseeing-view.comp
     SightseeingCardComponent,
     SightseeingEditComponent,
     SightseeingCreateComponent,
-    SightseeingViewComponent
+    SightseeingViewComponent,
+    //CityEditComponent
   ],
   providers: [
     SightseeingService
