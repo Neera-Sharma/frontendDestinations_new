@@ -21,6 +21,10 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
         {{city.cityName }}
       </div>
       <div class="form-group">
+        <label>Country</label>
+        {{city.country }}
+      </div>
+      <div class="form-group">
         <label>Description</label>
         {{ city.cityDescription }}
       </div>
