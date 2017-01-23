@@ -8,36 +8,10 @@ import {City, CityResponse, CitiesResponse} from "../../entities/city";
 export class CityService {
   public url: string;
 
-  cities: City[] = [];
-
   constructor(
     @Inject(BASE_URL) private baseUrl: string,
     private http: Http) {
     this.url = this.baseUrl + '/cities';
-  }
-
-  public findById(id: string): Observable<CityResponse> {
-    let search = new URLSearchParams();
-    search.set('id', id);
-
-    let headers = new Headers();
-    headers.set('Accept', 'application/json');
-
-    return this
-      .http
-      .get(this.url, { headers, search })
-      .map(resp => resp.json());
-
-  }
-
-  public findByUrl(url: string): Observable<CityResponse> {
-    let headers = new Headers();
-    headers.set('Accept', 'application/json');
-
-    return this
-      .http
-      .get(url, { headers })
-      .map(resp => resp.json());
   }
 
   public save(city: City): Observable<CityResponse> {
@@ -62,6 +36,41 @@ export class CityService {
       .http
       .get(this.url, { headers, search })
       .map(resp => resp.json());
+  }
+
+  public findById(id: string): Observable<CityResponse> {
+    let url = this.url + '/' + id;
+
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .get(url, { headers })
+      .map(resp => resp.json());
+
+  }
+
+  public findByUrl(url: string): Observable<CityResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .get(url, { headers })
+      .map(resp => resp.json());
+  }
+
+  public delete(id: string): Observable<string> {
+    let url = this.url + '/' + id;
+
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .delete(url, { headers })
+      .map(resp => '');
   }
 
 }

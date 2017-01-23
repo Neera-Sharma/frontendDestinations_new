@@ -37,31 +37,24 @@
   </div>
 
   <div class="form-group">
-    <button class="btn" (click)="search()">Search</button>
+    <button type="submit" class="btn btn-info" (click)="search()">
+      <i class="fa fa-search"></i>
+      Search
+    </button>
+    <button type="button" class="btn btn-success" routerLink="/city-new">
+      <i class="fa fa-plus"></i>
+      Add City
+    </button>
   </div>
-
-
 </form>
 
-<div *ngFor="let c of cities" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
+<div *ngFor="let city of cities" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
   <city-card
-    [item]="c"
+    [item]="city"
     [(selectedItem)]="selectedCity">
   </city-card>
 
 </div>
-
-
-
-<pre>selected items
-------------------------
-{{ selectedCity | json }}
-</pre>
-
-<div>
-<button class="btn" [routerLink]="['/city-new']" (click)="cityNew()">Add New</button>
-</div>
-
 
 
 

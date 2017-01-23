@@ -25,6 +25,16 @@ export class SightseeingService {
       .get(url, { headers })
       .map(resp => resp.json());
   }
+  public findByUrl(url: string): Observable<SightseeingResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .get(url, { headers })
+      .map(resp => resp.json());
+  }
+
 
   public save(sightseeing: Sightseeing): Observable<SightseeingResponse> {
     let headers = new Headers();
@@ -48,7 +58,7 @@ export class SightseeingService {
       .map(resp => '');
   }
 
-  public find(name: string): Observable<SightseeingsResponse> {
+  public find(name?: string): Observable<SightseeingsResponse> {
     let search = new URLSearchParams();
     search.set('sightseeingName', name);
 

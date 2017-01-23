@@ -3,9 +3,11 @@
  */
 
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CityService} from "../services/city.service";
 import {City} from "../../entities/city";
+import {Sightseeing} from "../../entities/sightseeing";
+import {SightseeingService} from "../../sightseeing-search/services/sightseeing.service";
 
 @Component({
   selector: 'city-new',
@@ -45,16 +47,13 @@ import {City} from "../../entities/city";
         <label>City Map</label>
         <input [(ngModel)]="city.cityMap" class="form-control">
       </div>
-      <div class="form-group">
-        <label>User-creator Id</label>
-        <input [(ngModel)]="city.user.id" class="form-control">
+     <div class="form-group">
+        <label>Sightseeing</label>
+        <select [(ngModel)]="city.sightseeing" class="form-control">
+          <option *ngFor="let sightseeing of sightseeings" value="{{ getSightseeingIdLink(sightseeing.id) }}">{{ sightseeing.sightseeingName }}</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label>Sightseeing Id</label>
-        <input [(ngModel)]="city.sightseeing.id" class="form-control">
-      </div>
-
-      <div class="form-group">
+       <div class="form-group">
         <button (click)="save()" class="btn btn-default">Save</button>
       </div>
     </div>
@@ -62,72 +61,43 @@ import {City} from "../../entities/city";
 })
 
 export class CityNewComponent {
-  id: string;
-  showDetails: string;
+  city = new City();
+  sightseeings: Sightseeing[] = [];
 
   constructor(
+    private sightseeingService: SightseeingService,
     private cityService: CityService,
-    route: ActivatedRoute) {
+    private router: Router) {
 
-    route.params.subscribe(
-      p => {
-        this.id = p['id'];
-        this.showDetails = p['showDetails'];
-        this.load(this.id);
-      }
-    )
-
-  }
-
-  city: City;
-  message: string;
-
-  load(id: string): void {
-    this
-      .cityService
-      .findById(id)
+    this.sightseeingService
+      .find()
       .subscribe(
-        city => {
-          this.city = city;
-          this.message = "";
+        res => {
+          this.sightseeings = res._embedded.sightseeings;
         },
-        (err) => {
-          this.message = "Fehler beim Speichern: " + err.text();
+        err => {
+          alert('Loading failed: ' + err.text());
         }
-      )
+      );
   }
-
-  addNew()
-  {
-     this
-      .cityService
-      .save(this.city)
-      .subscribe(
-      city => {
-      this.city = city;
-      this.message = "Daten wurden gespeichert!";
-      },
-      (err) => {
-         this.message = "Fehler beim Speichern: " + err.text();
-      }
-     )
-
- }
 
   save(): void {
     this
       .cityService
       .save(this.city)
       .subscribe(
-        city => {
-          this.city = city;
-          this.message = "Daten wurden gespeichert!";
+        res => {
+          this.router.navigate(['/city-view', res.id]);
+          this.city = res;
         },
         (err) => {
-          this.message = "Fehler beim Speichern: " + err.text();
+          alert("Save fails: " + err.text());
         }
       )
 
+  }
+  getSightseeingIdLink(id: number): string {
+    return this.sightseeingService.url + '/' + id;
   }
 
 }

@@ -3,16 +3,16 @@
  */
 
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CityService} from "../services/city.service";
 import {City} from "../../entities/city";
+import {Sightseeing} from "../../entities/sightseeing";
+import {SightseeingService} from "../../sightseeing-search/services/sightseeing.service";
 
 @Component({
   template: `
     <h1>Edit City</h1>
-    <div>
-      {{ message }}
-    </div>
+    
     <div *ngIf="city">
       <div class="form-group">
         <label>Id</label>
@@ -42,13 +42,12 @@ import {City} from "../../entities/city";
         <label>City Map</label>
         <input [(ngModel)]="city.cityMap" class="form-control">
       </div>
+      
       <div class="form-group">
-        <label>User-creator Id</label>
-        <input [(ngModel)]="city.user.id" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Sightseeing Id</label>
-        <input [(ngModel)]="city.sightseeing.id" class="form-control">
+        <label>Sightseeing</label>
+        <select [(ngModel)]="sightId" class="form-control">
+          <option *ngFor="let sightseeing of sightseeings" value="{{ sightseeing.id }}">{{ sightseeing.sightseeingName }}</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -60,54 +59,77 @@ import {City} from "../../entities/city";
 export class CityEditComponent {
   id: string;
   showDetails: string;
+  sightId:number;
+  city=new City();
+  sightseeings:Sightseeing[]=[];
 
   constructor(
+    private router: Router,
+    private sightseeingService: SightseeingService,
     private cityService: CityService,
-    route: ActivatedRoute) {
+    private route: ActivatedRoute) {
 
-    route.params.subscribe(
+    this.route.params.subscribe(
       p => {
         this.id = p['id'];
         this.showDetails = p['showDetails'];
-        this.load(this.id);
+        this.load();
       }
-    )
-
+    );
+    this.sightseeingService
+      .find()
+      .subscribe(
+        res => {
+          this.sightseeings = res._embedded.sightseeings;
+        },
+        err => {
+          alert('Loading failed: ' + err.text());
+        }
+      );
   }
 
-  city: City;
-  message: string;
-
-  load(id: string): void {
+  load(): void {
     this
       .cityService
-      .findById(id)
+      .findById(this.id)
       .subscribe(
-        city => {
-          this.city = city;
-          this.message = "";
+        res => {
+          this.city = res;
+          let url = res._links.sightseeing.href;
+          this
+            .sightseeingService
+            .findByUrl(url)
+            .subscribe(
+              res => {
+                this.sightId = res.id;
+              },
+              err => {
+                alert('Loading failed: ' + err.text());
+              }
+            );
         },
         (err) => {
-          this.message = "Fehler beim Speichern: " + err.text();
+          alert("Loading failed: " + err.text());
         }
-      )
+      );
   }
 
   save(): void {
+    this.city.sightseeing = this.getSightseeingIdLink(this.sightId);
     this
       .cityService
       .save(this.city)
       .subscribe(
-        city => {
-          this.city = city;
-          this.message = "Daten wurden gespeichert!";
+        res => {
+          this.router.navigate(['/city-view', res.id]);
+          this.city = res;
         },
         (err) => {
-          this.message = "Fehler beim Speichern: " + err.text();
+          alert("Save failed: " + err.text());
         }
-      )
-
+      );
   }
-
+  getSightseeingIdLink(id: number): string {
+    return this.sightseeingService.url + '/' + id;
+  }
 }
-
