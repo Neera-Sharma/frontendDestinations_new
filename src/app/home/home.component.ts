@@ -1,9 +1,12 @@
 
+
+
 import { Component } from '@angular/core';
 
 @Component({
   template: `
-    <h1>Beautiful Destinations</h1>
+    <h1 style="text-align:center">Willkommen!</h1>
+    
   `
 })
 export class HomeComponent {

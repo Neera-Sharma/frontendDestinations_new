@@ -1,13 +1,24 @@
-
 <nav class="navbar navbar-default">
-  <ul class="nav navbar-nav">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/sightseeing-search">Sightseeing Search</a></li>
-    <li><a routerLink="/city-search">City Search</a></li>
-  </ul>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/home"><font size="6">
+        Beautiful Destinations</font></a></li>
+      <li><a routerLink="/home"><font size="6">Login</font></a></li>
+
+    </ul>
+  </div>
+
+
 </nav>
 
+<div class="ui divider">
+  <nav>
 
+    <a routerLink="/city-search"><font size="4">Cities</font></a><br/>
+
+    <a routerLink="/sightseeing-search"><font size="4">Sightseeings</font></a>
+  </nav>
+</div>
 
 <main class="container">
   <router-outlet></router-outlet>
