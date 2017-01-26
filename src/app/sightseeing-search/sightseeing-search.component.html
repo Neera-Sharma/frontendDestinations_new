@@ -1,59 +1,22 @@
+<h1  style="text-align: center; color: white;">Explore sightseeings</h1>
+<form #f="ngForm" novalidate style="alignment: center;">
+  <div class="form-group" style="text-align: center;">
 
-<h1>Search sightseeings</h1>
-<form #f="ngForm" novalidate>
-<div class="form-group">
-  <label>Input name:</label>
-  <input [(ngModel)]="sightseeingName"
-         name="sigthseeingName"
-         required
-         minlength="3"
-         maxlength="30"
-         pattern="[0-9a-zA-ZöäüßÖÄÜ]*"
-         class="form-control">
+    <button style="background-color: forestgreen; opacity: 0.7; font-size:200%; size: 20px;" type="submit" class="btn btn-info" (click)="search()">
+      <i class="fa fa-search fa-3x"></i>
+      Go!
+    </button>
 
-  <div *ngIf="!f?.controls?.sightseeingName?.valid">
-    Fehler beim Validieren
-    {{f?.controls?.sightseeingName?.errors | json }}
+    <button style="background-color: forestgreen; opacity: 0.7; font-size:200%; size: 20px; background-color: forestgreen; opacity: 0.7;" type="button" class="btn btn-success" routerLink="/sightseeing-create">
+      <i class="fa fa-plus fa-3x"></i>
+      Add
+    </button>
   </div>
-
-  <div *ngIf="f?.controls?.sightseeingName?.pending">
-    <marquee>
-      Es wird gerade validiert!
-    </marquee>
-  </div>
-
-  <div *ngIf="f?.controls?.sightseeingName?.hasError('minlength')">
-    Zu kurz!
-  </div>
-
-  <div *ngIf="f?.controls?.sightseeingName?.hasError('pattern')">
-    Darf nur Zahlen und Buchstaben beinhalten
-  </div>
-
-  <div *ngIf="f?.controls?.sightseeingName?.hasError('required')">
-    Ist ein Pflichtfeld
-  </div>
-
-</div>
-
-<div class="form-group">
-  <button type="submit" class="btn btn-info" (click)="search()">
-    <i class="fa fa-search"></i>
-    Search
-  </button>
-  <button type="button" class="btn btn-success" routerLink="/sightseeing-create">
-    <i class="fa fa-plus"></i>
-    Add sightseeing
-  </button>
-</div>
 </form>
 
-<div *ngFor="let sightseeing of sightseeings" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
+<div *ngFor="let sightseeing of sightseeings"  style="text-align: center;" class="col-xs-12 col-lg-3 col-md-4 col-sm-6 ">
   <sightseeing-card
     [item]="sightseeing"
     [(selectedItem)]="selectedSightseeing">
   </sightseeing-card>
-
 </div>
-
-

@@ -70,4 +70,5 @@ export class SightseeingService {
       .get(this.url, { headers, search })
       .map(resp => resp.json());
   }
+
 }

@@ -41,8 +41,8 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
         {{city.cityMap }}
       </div>
       <div class="form-group">
-        <label>Sightseeing</label>
-        <a [routerLink]="['/sightseeing-edit', sightseeing.id,{ showDetails: true, expertMode: false}]">
+        <label>Sightseeings</label>
+        <a [routerLink]="['/sightseeing-view', sightseeing.id,{ showDetails: true, expertMode: false}]">
         {{sightseeing.sightseeingName }}
         </a>        
       </div>

@@ -8,37 +8,33 @@ import {City} from "../../entities/city";
 @Component({
   selector: 'sightseeing-view',
   template: `
-    <h1>View sightseeing</h1>
+    <h1 style="color: white">{{ sightseeing.sightseeingName }}</h1>
     <div>
-      <div class="form-group">
-        <label>Sightseeing Name</label>
-        {{ sightseeing.sightseeingName }}
-      </div>
-      <div class="form-group">
+      <div class="form-group" style="color: white;">
         <label>Description</label>
         {{ sightseeing.sightseeingDescription }}
       </div>
-      <div class="form-group">
+      <div class="form-group" style="color: white;">
         <label>Driveway</label>
         {{ sightseeing.sightseeingDriveway }}
       </div>
-       <div class="form-group">
+       <div class="form-group" style="color: white;">
         <label>Photolink</label>
         {{ sightseeing.sightseeingPhotoLink }}
       </div>
-      <div class="form-group">
+      <div class="form-group" style="color: white;">
         <label>Map</label>
         {{ sightseeing.sightseeingMap }}
       </div>
-      <div class="form-group">
+      <div class="form-group" style="color: white;">
         <label>City</label>
-        <a [routerLink]="['/city-edit', city.id,{ showDetails: true, expertMode: false}]">
+        <a [routerLink]="['/city-view', city.id,{ showDetails: true, expertMode: false}]">
         {{ city.cityName }}
-        </a>        
+        </a>
       </div>
       <div class="form-group">
-        <button class="btn btn-default" [routerLink]="['/sightseeing-edit', sightseeing.id, { showDetails: true, expertMode: false}]">Editieren</button>
-        <button class="btn btn-default" type="button" (click)="delete()">Delete</button>
+        <button style="color: white; background-color: forestgreen; opacity: 0.7" class="btn btn-default" [routerLink]="['/sightseeing-edit', sightseeing.id, { showDetails: true, expertMode: false}]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+        <button style="color: white; background-color: forestgreen; opacity: 0.7" class="btn btn-default" type="button" (click)="delete()"> <i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
       </div>
     </div>
     `

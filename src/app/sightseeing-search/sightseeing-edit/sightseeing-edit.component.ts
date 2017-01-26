@@ -7,36 +7,36 @@ import {City} from "../../entities/city";
 
 @Component({
   template: `
-    <h1>Edit Sightseeing</h1>
+    <h1 style="color: white">Edit {{ sightseeing.sightseeingName }}</h1>
     <div *ngIf="sightseeing">
       <div class="form-group">
-        <label>Name</label>
+       <label style="color: white">Name</label>
         <input [(ngModel)]="sightseeing.sightseeingName" class="form-control">
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label style="color: white">Description</label>
         <input [(ngModel)]="sightseeing.sightseeingDescription" class="form-control">
       </div>
       <div class="form-group">
-        <label>Driveway</label>
+        <label style="color: white">Driveway</label>
         <input [(ngModel)]="sightseeing.sightseeingDriveway" class="form-control">
       </div>
        <div class="form-group">
-        <label>Photo</label>
+        <label style="color: white">Photo</label>
         <input [(ngModel)]="sightseeing.sightseeingPhotoLink" class="form-control">
       </div>
       <div class="form-group">
-        <label>Map</label>
+        <label style="color: white">Map</label>
         <input [(ngModel)]="sightseeing.sightseeingMap" class="form-control">
       </div>
       <div class="form-group">
-        <label>City</label>
+        <label style="color: white">City</label>
         <select [(ngModel)]="cityId" class="form-control">
           <option *ngFor="let city of cities" value="{{ city.id }}">{{ city.cityName }}</option>
         </select>
       </div>
       <div class="form-group">
-        <button (click)="save()" class="btn btn-default">Save</button>
+        <button style="background-color: forestgreen; opacity: 0.7" (click)="save()" class="btn btn-default"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
       </div>
     </div>
     `

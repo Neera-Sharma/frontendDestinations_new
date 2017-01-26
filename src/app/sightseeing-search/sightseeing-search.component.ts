@@ -6,7 +6,6 @@ import {Sightseeing} from "../entities/sightseeing";
 @Component({
   selector: 'sightseeing-search',
   templateUrl: './sightseeing-search.component.html',
-  styleUrls: ['./sightseeing-search.component.css'],
   providers:[  ]
 })
 export class SightseeingSearchComponent {

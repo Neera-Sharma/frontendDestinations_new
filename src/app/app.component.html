@@ -1,25 +1,18 @@
-<nav class="navbar navbar-default">
-  <div class="container">
+<div id="wrapper" class="active">
+
+<nav class="navbar navbar-default" style="background-color: forestgreen; opacity: 0.7;">
     <ul class="nav navbar-nav">
-      <li><a routerLink="/home"><font size="6">
-        Beautiful Destinations</font></a></li>
-      <li><a routerLink="/home"><font size="6">Login</font></a></li>
-
+      <li><a style="opacity: 2; color: white" routerLink="/home" ><i class="fa fa-globe" aria-hidden="true"></i> Beautiful Destinations</a></li>
+      <li><a style="opacity: 2; color: white" routerLink="/city-search"><i class="fa fa-building" aria-hidden="true"></i> Cities</a></li>
+      <li><a style="opacity: 2; color: white" routerLink="/sightseeing-search"><i class="fa fa-map-marker" aria-hidden="true"></i> Sightseeings</a></li>
     </ul>
-  </div>
-
-
 </nav>
 
-<div class="ui divider">
-  <nav>
+    <div class="col-md-12">
+        <main class="container">
+          <router-outlet></router-outlet>
+        </main>
+    </div>
 
-    <a routerLink="/city-search"><font size="4">Cities</font></a><br/>
-
-    <a routerLink="/sightseeing-search"><font size="4">Sightseeings</font></a>
-  </nav>
 </div>
 
-<main class="container">
-  <router-outlet></router-outlet>
-</main>

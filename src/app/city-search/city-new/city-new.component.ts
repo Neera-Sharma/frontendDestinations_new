@@ -47,12 +47,6 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
         <label>City Map</label>
         <input [(ngModel)]="city.cityMap" class="form-control">
       </div>
-     <div class="form-group">
-        <label>Sightseeing</label>
-        <select [(ngModel)]="city.sightseeing" class="form-control">
-          <option *ngFor="let sightseeing of sightseeings" value="{{ getSightseeingIdLink(sightseeing.id) }}">{{ sightseeing.sightseeingName }}</option>
-        </select>
-      </div>
        <div class="form-group">
         <button (click)="save()" class="btn btn-default">Save</button>
       </div>

@@ -8,7 +8,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'sightseeing-search',
   templateUrl: './city-search.component.html',
-  styleUrls: ['./city-search.component.css'],providers:[]
+  styleUrls: ['./city-search.component.css'],
+  providers:[]
 
 })
 export class CitySearchComponent {

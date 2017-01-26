@@ -1,9 +1,6 @@
-<div style="padding:20px;" [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }">
-  <a class="btn btn-default" [routerLink]="['/city-view', item.id, { showDetails: true, expertMode: false}]">
+
+<div style="padding:20px;" [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }" [routerLink]="['/city-view', item.id, { showDetails: true, expertMode: false}]">
     <h2>{{item.cityName}}</h2>
-    <p>{{item.cityDescription}}</p>
-    <p>{{item.cityDriveway}}</p>
-    <p>{{item.cityMap}}</p>
     <picture>{{item.cityPhotoLink}}</picture>
-  </a>
 </div>
+
