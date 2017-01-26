@@ -1,3 +1,5 @@
+
+import {SightseeingsResponse, Sightseeing} from "./sightseeing";
 export class City {
   id:number;
   cityName: string;
@@ -6,6 +8,7 @@ export class City {
   cityDriveway: string;
   cityPhotoLink: string;
   cityMap: string;
+  sightseeings: string [];
 }
 
 export interface CitiesResponse {
@@ -28,7 +31,7 @@ export interface CityResponse extends City {
   _links: {
     self: { href: string },
     city: { href: string }
-    sightseeing: { href: string },
+    sightseeings: { href: string },
     user: { href: string },
   }
 }

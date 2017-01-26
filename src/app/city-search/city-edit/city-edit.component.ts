@@ -75,7 +75,13 @@ export class CityEditComponent {
       );
   }
 
+
+
+
   save(): void {
+
+    this.city.sightseeings = [];
+
     this
       .cityService
       .save(this.city)

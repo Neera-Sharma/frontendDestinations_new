@@ -25,7 +25,8 @@ export class SightseeingService {
       .get(url, { headers })
       .map(resp => resp.json());
   }
-  public findByUrl(url: string): Observable<SightseeingResponse> {
+
+  public findSightseeingsByUrl(url: string): Observable<SightseeingsResponse> {
     let headers = new Headers();
     headers.set('Accept', 'application/json');
 
@@ -34,7 +35,6 @@ export class SightseeingService {
       .get(url, { headers })
       .map(resp => resp.json());
   }
-
 
   public save(sightseeing: Sightseeing): Observable<SightseeingResponse> {
     let headers = new Headers();

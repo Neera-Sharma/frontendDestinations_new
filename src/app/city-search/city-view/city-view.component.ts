@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
 import {City, CityResponse} from "../../entities/city";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CityService} from "../../city-search/services/city.service";
-import {Sightseeing} from "../../entities/sightseeing";
+import {Sightseeing, SightseeingResponse} from "../../entities/sightseeing";
 import {SightseeingService} from "../../sightseeing-search/services/sightseeing.service";
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -41,10 +42,12 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
         {{city.cityMap }}
       </div>
       <div class="form-group">
-        <label>Sightseeings</label>
+      <label>Sightseeings</label>
+      <tr *ngFor="let sightseeing of sightseeings">
         <a [routerLink]="['/sightseeing-view', sightseeing.id,{ showDetails: true, expertMode: false}]">
         {{sightseeing.sightseeingName }}
-        </a>        
+        </a> 
+      </tr>
       </div>
       <div class="form-group">
         <button class="btn btn-default" [routerLink]="['/city-edit', city.id, { showDetails: true, expertMode: false}]">Editieren</button>
@@ -56,7 +59,7 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
 
 export class CityViewComponent {
   id: string;
-  sightseeing = new Sightseeing();
+  sightseeings: Sightseeing[] = [];
   city = new City();
 
 
@@ -84,17 +87,18 @@ export class CityViewComponent {
         res => {
           this.city = res;
           let city = this.city as CityResponse;
-          let url = city._links.sightseeing.href;
+          let url = city._links.sightseeings.href;
           this
             .sightseeingService
-            .findByUrl(url)
+            .findSightseeingsByUrl(url)
             .subscribe(
-              res => {
-                this.sightseeing = res;
-              },
+            res => {
+              this.sightseeings = res._embedded.sightseeings;
+            },
               err => {
                 alert('Loading failed: ' + err.text());
               }
+
             );
         },
         (err) => {

@@ -56,23 +56,11 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
 
 export class CityNewComponent {
   city = new City();
-  sightseeings: Sightseeing[] = [];
 
   constructor(
-    private sightseeingService: SightseeingService,
     private cityService: CityService,
     private router: Router) {
 
-    this.sightseeingService
-      .find()
-      .subscribe(
-        res => {
-          this.sightseeings = res._embedded.sightseeings;
-        },
-        err => {
-          alert('Loading failed: ' + err.text());
-        }
-      );
   }
 
   save(): void {
@@ -89,9 +77,6 @@ export class CityNewComponent {
         }
       )
 
-  }
-  getSightseeingIdLink(id: number): string {
-    return this.sightseeingService.url + '/' + id;
   }
 
 }

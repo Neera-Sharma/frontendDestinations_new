@@ -36,7 +36,7 @@ import {City} from "../../entities/city";
         </select>
       </div>
       <div class="form-group">
-        <button style="background-color: forestgreen; opacity: 0.7" (click)="save()" class="btn btn-default"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
+        <button style="color: white; background-color: forestgreen; opacity: 0.7" (click)="save()" class="btn btn-default"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
       </div>
     </div>
     `
