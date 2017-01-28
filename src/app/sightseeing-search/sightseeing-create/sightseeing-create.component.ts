@@ -9,6 +9,7 @@ import {City} from "../../entities/city";
   selector: 'sightseeing-create',
   template: `
     <h1 style="color: white">Create sightseeing</h1>
+    <p style="color: yellow">Attention! Before creating a sightseeing you have to create a city where this sighseeing is located!</p>
     <div>
       <div class="form-group">
         <label style="color: white">Sightseeing Name</label>

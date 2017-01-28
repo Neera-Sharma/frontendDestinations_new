@@ -13,7 +13,7 @@ export class CityService {
     private http: Http) {
     this.url = this.baseUrl + '/cities';
   }
-
+//save city Entity (Angular) in database table as city
   public save(city: City): Observable<CityResponse> {
     let headers = new Headers();
     headers.set('Accept', 'application/json');
@@ -38,6 +38,7 @@ export class CityService {
       .map(resp => resp.json());
   }
 
+  //find a city with the given link (link includes Id)
   public findById(id: string): Observable<CityResponse> {
     let url = this.url + '/' + id;
 

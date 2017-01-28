@@ -53,6 +53,9 @@ import {forEach} from "@angular/router/src/utils/collection";
         <button class="btn btn-default" [routerLink]="['/city-edit', city.id, { showDetails: true, expertMode: false}]">Editieren</button>
         <button class="btn btn-default" type="button" (click)="delete()">Delete</button>
       </div>
+      <div>
+      <p style="color: yellow">Attention! If you delete this city, all sightseeings of this city will be deleted!</p>
+</div>
     </div>
     `
 })
