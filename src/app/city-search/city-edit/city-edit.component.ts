@@ -6,42 +6,46 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CityService} from "../services/city.service";
 import {City} from "../../entities/city";
+import {SightseeingService} from "../../sightseeing-search/services/sightseeing.service";
+import {Sightseeing} from "../../entities/sightseeing";
 
 @Component({
   template: `
-    <h1>Edit City</h1>
+    <h1 style="color: white">Edit {{ city.cityName }}</h1>
     
     <div *ngIf="city">
       <div class="form-group">
-        <label>Name Of City</label>
+        <label style="color: white">Name :</label>
         <input [(ngModel)]="city.cityName" class="form-control">
       </div>
       <div class="form-group">
-        <label>Country</label>
+        <label style="color: white">Country :</label>
         <input [(ngModel)]="city.country" class="form-control">
       </div>
       <div class="form-group">
-        <label>Description</label>
+        <label style="color: white">Description :</label>
         <input [(ngModel)]="city.cityDescription" class="form-control">
       </div>
       <div class="form-group">
-        <label>Driveway</label>
+        <label style="color: white">Driveway :</label>
         <input [(ngModel)]="city.cityDriveway" class="form-control">
       </div>
        <div class="form-group">
-        <label>City Photolink</label>
+        <label style="color: white">Photo :</label>
         <input [(ngModel)]="city.cityPhotoLink" class="form-control">
       </div>
       <div class="form-group">
-        <label>City Map</label>
+        <label style="color: white">Map :</label>
         <input [(ngModel)]="city.cityMap" class="form-control">
       </div>      
       <div class="form-group">
-        <button (click)="save()" class="btn btn-default">Save</button>
+        <button style="color: white; background-color: forestgreen; opacity: 0.7" (click)="save()" class="btn btn-default"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
       </div>
     </div>
     `
 })
+
+
 export class CityEditComponent {
   id: string;
   showDetails: string;
@@ -75,9 +79,6 @@ export class CityEditComponent {
       );
   }
 
-
-
-
   save(): void {
 
     this.city.sightseeings = [];
@@ -96,3 +97,4 @@ export class CityEditComponent {
       );
   }
 }
+

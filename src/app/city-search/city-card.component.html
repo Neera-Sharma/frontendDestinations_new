@@ -1,6 +1,7 @@
-
-<div style="padding:20px;" [ngStyle]="{'background-color': (selectedItem == item) ?  'orange' : 'lightsteelblue' }" [routerLink]="['/city-view', item.id, { showDetails: true, expertMode: false}]">
-    <h2>{{item.cityName}}</h2>
-    <picture>{{item.cityPhotoLink}}</picture>
+<div style="padding:20px; background-color: forestgreen; opacity: 1;" [routerLink]="['/city-view', item.id, { showDetails: true, expertMode: false}]">
+  <picture>{{item.cityPhotoLink}}</picture>
+  <p style="alignment: center; color: white; font-size: 200%"><i class="fa fa-globe" aria-hidden="true"></i> {{item.cityName}}</p><br/>
 </div>
+
+
 

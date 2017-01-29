@@ -71,4 +71,14 @@ export class SightseeingService {
       .map(resp => resp.json());
   }
 
+  public findByUrl(url: string): Observable<SightseeingResponse> {
+    let headers = new Headers();
+    headers.set('Accept', 'application/json');
+
+    return this
+      .http
+      .get(url, { headers })
+      .map(resp => resp.json());
+  }
+
 }
