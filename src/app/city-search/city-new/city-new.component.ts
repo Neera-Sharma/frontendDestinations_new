@@ -13,15 +13,34 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
   selector: 'city-new',
   template: `
     <h1 style="color: white">Create city</h1>
+    
       <div>
-      
-      <div class="form-group">
-        <label style="color: white">City Name</label>
-        <input [(ngModel)]="city.cityName" class="form-control">
-      </div>
+      <form *ngIf="!c" class="ui form" (ngSave)="onSave()" #cityForm = "ngForm">
       <div class="form-group">
         <label style="color: white">Country</label>
-        <input [(ngModel)]="city.country" class="form-control">
+        <input [(ngModel)]="city.country" 
+        class="form-control">
+      </div>
+      <!--
+      <form novalidate #f="ngForm">
+      <div class="form-group">
+        <label style="color: white">City Name</label>
+        <input [(ngModel)]="city.cityName" type="text" name="city_Name"
+         required
+         minlength="3"
+         maxlength="30"
+         pattern="[a-zA-ZöäüßÖÄÜ]*"
+         class="form-control">
+         -->
+        
+         
+       
+         
+      
+      <div class="form-group">
+        <label style="color: white">Country</label>
+        <input [(ngModel)]="city.country" 
+        class="form-control">
       </div>
       <div class="form-group">
         <label style="color: white">Description</label>
@@ -42,7 +61,9 @@ import {SightseeingService} from "../../sightseeing-search/services/sightseeing.
         <div class="form-group">
         <button style="color: white; background-color: forestgreen; opacity: 0.7" (click)="save()" class="btn btn-default"><i class="fa fa-check-square" aria-hidden="true"></i> Save</button>
       </div>
+       </form>
     </div>
+ 
     `
 })
 
@@ -53,9 +74,9 @@ export class CityNewComponent {
     private cityService: CityService,
     private router: Router) {
   }
-/*
-Saves the city in database
-*/
+  /*
+  Saves the city in database
+  */
   save(): void {
     this
       .cityService

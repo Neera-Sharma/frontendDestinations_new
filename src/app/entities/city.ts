@@ -8,7 +8,7 @@ export class City {
   cityDriveway: string;
   cityPhotoLink: string;
   cityMap: string;
-  sightseeings: string [];
+  sightseeings: string;
 }
 
 export interface CitiesResponse {

@@ -22,7 +22,7 @@ export class CitySearchComponent {
     private cityService: CityService,
     private route: ActivatedRoute,
     private router: Router) {}
-
+/*search the city entered by user from database*/
   search(): void {
     this
       .cityService

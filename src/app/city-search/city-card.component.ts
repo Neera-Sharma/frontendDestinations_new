@@ -16,6 +16,7 @@ export class CityCardComponent {
   @Input() selectedItem: City;
   @Output() selectedItemChange = new EventEmitter();
 
+  /*selects the item in city card*/
   select() {
     this.selectedItemChange.next(this.item);
   }

@@ -77,7 +77,7 @@ export class CityViewComponent {
   }
 
 
-
+/*loads the data from database as soon as the constructor is called*/
   load(): void {
     this
       .cityService
@@ -105,6 +105,7 @@ export class CityViewComponent {
         }
       );
   }
+  /*delete the selected item from the view as well as from database by its id */
   delete(): void {
     this
       .cityService

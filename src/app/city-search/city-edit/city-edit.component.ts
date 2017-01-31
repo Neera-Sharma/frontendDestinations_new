@@ -44,6 +44,87 @@ import {Sightseeing} from "../../entities/sightseeing";
     </div>
     `
 })
+export class CityEditComponent {
+  id: string;
+  showDetails: string;
+  sightId:number;
+  city=new City();
+  sightseeings:Sightseeing[]=[];
+
+  constructor(
+    private router: Router,
+    private sightseeingService: SightseeingService,
+    private cityService: CityService,
+    private route: ActivatedRoute) {
+
+    this.route.params.subscribe(
+      p => {
+        this.id = p['id'];
+        this.showDetails = p['showDetails'];
+        this.load();
+      }
+    );
+    this.sightseeingService
+      .find()
+      .subscribe(
+        res => {
+          this.sightseeings = res._embedded.sightseeings;
+        },
+        err => {
+          alert('Loading failed: ' + err.text());
+        }
+      );
+  }
+  /*Loads the city data from database as soon as constructor is called*/
+  load(): void {
+    this
+      .cityService
+      .findById(this.id)
+      .subscribe(
+        res => {
+          this.city = res;
+          let url = res._links.sightseeings.href;
+          this
+            .sightseeingService
+            .findByUrl(url)
+            .subscribe(
+              res => {
+                this.sightId = res.id;
+              },
+              err => {
+                alert('Loading failed: ' + err.text());
+              }
+            );
+        },
+        (err) => {
+          alert("Loading failed: " + err.text());
+        }
+      );
+  }
+/*Saves the city in database with edited results*/
+  save(): void {
+    this.city.sightseeings = this.getSightseeingIdLink(this.sightId);
+    this
+      .cityService
+      .save(this.city)
+      .subscribe(
+        res => {
+          this.router.navigate(['/city-view', res.id]);
+          this.city = res;
+        },
+        (err) => {
+          alert("Save failed: " + err.text());
+        }
+      );
+  }
+  /*gets the sightseeings as a link in city edit form*/
+  getSightseeingIdLink(id: number): string {
+    return this.sightseeingService.url + '/' + id;
+  }
+}
+
+
+/*
 
 
 export class CityEditComponent {
@@ -97,4 +178,5 @@ export class CityEditComponent {
       );
   }
 }
+*/
 
