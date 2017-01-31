@@ -11,6 +11,7 @@ export class SightseeingCardComponent {
   @Input() selectedItem: Sightseeing;
   @Output() selectedItemChange = new EventEmitter();
 
+  /*select the sightseeing item */
   select() {
     this.selectedItemChange.next(this.item);
   }

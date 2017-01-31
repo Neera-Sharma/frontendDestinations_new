@@ -58,7 +58,7 @@ export class SightseeingViewComponent {
       }
     );
   }
-
+  /*delete the data in database by selected id*/
   delete(): void {
     this
       .sightseeingService
@@ -73,7 +73,7 @@ export class SightseeingViewComponent {
         }
       );
   }
-
+  /*load the sightseeing data from database*/
   load(): void {
     this
       .sightseeingService

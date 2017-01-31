@@ -69,7 +69,7 @@ export class SightseeingCreateComponent {
   getCityIdLink(id: number): string {
     return this.cityService.url + '/' + id;
   }
-
+  /*saves the user created sightseeing entity in database*/
   save(): void {
     this
       .sightseeingService

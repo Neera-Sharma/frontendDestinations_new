@@ -9,25 +9,15 @@ export class CityPipe implements PipeTransform {
 
   transform(value: any, ...args: any[]): any {
 
-    let long, short;
+    let  short;
     let fmt = args[0]; // 'short', 'long'
-
-    switch(value) {
-      case "Graz":
-        long = "Flughafen Graz Thalerhof";
-        short = "GRZ";
-        break;
-      case "Hamburg":
-        long = "Aiport Hamburg Fulsbüttl Helmut Schmidt";
-        short = "HAM";
-        break;
-      default:
-        long = short = "ROM";
+    if(value ="Graz")
+    {
+      short = "GRZ";
     }
-
-    if (fmt == 'short') return short;
-    return long;
-
+    else {
+      short = value.toUpperCase().slice(0,2);
+    }
 
   }
 

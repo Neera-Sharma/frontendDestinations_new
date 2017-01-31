@@ -73,11 +73,11 @@ export class SightseeingEditComponent {
         }
       );
   }
-
+  /*finds the sightseeing by link id from database*/
   getCityIdLink(id: number): string {
     return this.cityService.url + '/' + id;
   }
-
+  /*loads the data from database as soon as constructor is called*/
   load(): void {
     this
       .sightseeingService
@@ -103,7 +103,7 @@ export class SightseeingEditComponent {
         }
       );
   }
-
+/*saves the sightseeing entity data in database*/
   save(): void {
     this.sightseeing.city = this.getCityIdLink(this.cityId);
     this
